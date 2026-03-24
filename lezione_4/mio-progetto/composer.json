@@ -1,0 +1,17 @@
+{
+    "name": "rcors/mio-progetto",
+    "autoload": {
+        "psr-4": {
+            "Rcors\\MioProgetto\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "RaffaeleCorso",
+            "email": "dott.corsoraffaele@gmail.com"
+        }
+    ],
+    "require": {
+        "monolog/monolog": "^3.10"
+    }
+}

@@ -1,0 +1,19 @@
+
+APRIRE FILE PHP
+Nel terminale usa il comando per aprire il file indicato
+
+AVVIO SERVER PHP
+Nel terminale, assicurati di essere nella cartella dove hai salvato index.php
+avvia il server integrato di PHP: 
+
+php -S localhost:8000
+
+Creare un nuovo progetto Laravel
+composer create-project laravel/laravel mio-primo-laravel
+
+Per avviare l'applicazione entra nella cartella appena creata
+php artisan serve
+
+Invece di creare i file a mano, Laravel offre Artisan per generare codice boilerplate. 
+Nel terminale (assicurati di essere dentro la cartella del progetto), apri una nuova scheda e lancia:
+php artisan make:controller SalutoController
