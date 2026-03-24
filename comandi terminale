@@ -1,19 +1,117 @@
+Cheatsheet Comandi PHP, Composer e Laravel
 
-APRIRE FILE PHP
-Nel terminale usa il comando per aprire il file indicato
+Questo documento raccoglie tutti i comandi da terminale visti durante il corso, più alcune aggiunte fondamentali per lo sviluppo quotidiano in ambiente PHP e Laravel.
 
-AVVIO SERVER PHP
-Nel terminale, assicurati di essere nella cartella dove hai salvato index.php
-avvia il server integrato di PHP: 
+🐘 1. PHP Base (CLI)
+
+php -v
+Mostra la versione di PHP attualmente installata e attiva.
+
+php -m (Nuovo)
+Mostra la lista di tutti i moduli/estensioni PHP attualmente abilitati (utile per verificare se zip, fileinfo o pdo_mysql sono attivi).
+
+php nomefile.php
+Esegue uno script PHP da riga di comando.
 
 php -S localhost:8000
+Avvia il server web di sviluppo integrato di PHP nella cartella corrente.
 
-Creare un nuovo progetto Laravel
-composer create-project laravel/laravel mio-primo-laravel
+📦 2. Composer (Gestione Dipendenze)
 
-Per avviare l'applicazione entra nella cartella appena creata
+L'equivalente di Maven o Gradle.
+
+composer -v
+Verifica che Composer sia installato correttamente.
+
+composer init
+Inizializza un nuovo progetto PHP vuoto creando il file composer.json.
+
+composer require nome/pacchetto
+Installa una nuova libreria e la aggiunge a composer.json (es. composer require monolog/monolog).
+
+composer install
+Scarica esattamente le versioni specificate nel file composer.lock (si usa di solito dopo aver clonato un progetto da GitHub).
+
+composer update
+Aggiorna tutte le librerie del progetto all'ultima versione compatibile permessa dal composer.json.
+
+composer dump-autoload (Nuovo)
+Rigenera il file di autoloading. Salvavita: usalo se aggiungi manualmente file/classi e PHP ti dà l'errore "Class not found".
+
+composer create-project laravel/laravel nome-app
+Scarica e installa uno scheletro di progetto Laravel pronto all'uso.
+
+🛠️ 3. Laravel Artisan (Base e Generazione Codice)
+
+Artisan è lo strumento CLI di Laravel. Va eseguito SEMPRE dalla root del progetto.
+
+php artisan (Nuovo)
+Mostra la lista completa di tutti i comandi Artisan disponibili.
+
 php artisan serve
+Avvia il server di sviluppo di Laravel (tipicamente su http://localhost:8000).
 
-Invece di creare i file a mano, Laravel offre Artisan per generare codice boilerplate. 
-Nel terminale (assicurati di essere dentro la cartella del progetto), apri una nuova scheda e lancia:
-php artisan make:controller SalutoController
+php artisan make:controller NomeController
+Crea un nuovo Controller vuoto nella cartella app/Http/Controllers.
+
+php artisan route:list (Nuovo)
+Mostra una tabella utilissima con tutte le rotte (URL) registrate nella tua applicazione.
+
+php artisan route:list --path=api
+Mostra solo le rotte che iniziano con /api.
+
+php artisan install:api
+Genera il file routes/api.php e configura il progetto per gestire chiamate RESTful.
+
+php artisan make:controller Api/NomeController --api --model=NomeModel
+Genera un Resource Controller per API (metodi GET, POST, PUT, DELETE preimpostati) legato a un Model specifico.
+
+php artisan make:resource NomeResource
+Crea una risorsa Eloquent (il tuo DTO) per trasformare i Model in JSON in modo controllato.
+
+🗄️ 4. Laravel Artisan (Database e Migrations)
+
+L'equivalente di Flyway/Liquibase e Hibernate.
+
+php artisan make:migration create_nometabella_table
+Crea un file di migrazione vuoto per generare una nuova tabella.
+
+php artisan make:model NomeModel
+Crea un Model Eloquent per interagire con il database.
+
+php artisan migrate
+Esegue tutte le migrazioni pendenti (crea/modifica le tabelle fisicamente nel DB).
+
+php artisan migrate:rollback (Nuovo)
+Annulla l'ultima migrazione eseguita (utile se hai sbagliato a creare una colonna).
+
+php artisan migrate:fresh (Nuovo)
+Attenzione: distruttivo! Elimina TUTTE le tabelle dal database e riesegue le migrazioni da zero. Perfetto in fase di sviluppo per azzerare tutto.
+
+🪄 5. Comandi "Salvavita" di Laravel (Extra)
+
+php artisan tinker (Nuovo - Super Consigliato)
+Apre una shell interattiva REPL (tipo JShell in Java). Puoi digitare codice PHP, fare query al DB (es. App\Models\User::all()), testare algoritmi... tutto live dentro la tua app, senza dover creare rotte temporanee! Per uscire, scrivi exit.
+
+php artisan optimize:clear (Nuovo)
+Svuota tutte le cache di Laravel (rotte, viste, configurazioni). Se hai cambiato qualcosa in .env o nelle rotte ma l'app sembra non aggiornarsi, lancia questo comando!
+
+php artisan make:seeder NomeSeeder (Nuovo)
+Crea un file per popolare (seed) il database con dati finti di test.
+
+php artisan db:seed (Nuovo)
+Esegue i file Seeder popolando effettivamente il database.
+
+🐙 6. Git Base (Recap Veloce)
+
+(Se preferisci la riga di comando a VS Code)
+
+git init: Inizializza un repository in una cartella.
+
+git status: Mostra quali file sono stati modificati.
+
+git add .: Mette in coda (stage) tutte le modifiche.
+
+git commit -m "Messaggio": Salva le modifiche localmente.
+
+git push: Invia le modifiche al server remoto (GitHub).
